@@ -26,3 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 - None
+
+## [1.1.1] - 2025-12-12
+
+### Changed
+- Optimized `getCommonPrefixLength` using bitwise XOR and `Math.clz32`

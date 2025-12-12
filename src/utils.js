@@ -37,15 +37,5 @@ export const getNetworkAddress = (ip, prefix) => {
  * @param {number} b - Second IPv4 address as 32-bit integer
  * @returns {number} Common prefix length (0–32)
  */
-export const getCommonPrefixLength = (a, b) => {
-  let prefix = 32
-  while (prefix > 0) {
-    const mask = (~0 << (32 - prefix)) >>> 0
-    if ((a & mask) === (b & mask)) {
-      return prefix
-    }
-    prefix--
-  }
-  return 0
-}
+export const getCommonPrefixLength = (a, b) => Math.clz32((a ^ b) >>> 0)
 

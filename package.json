@@ -1,6 +1,6 @@
 {
   "name": "ipv4-cidr-aggregator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Aggregate IPv4 addresses into minimal CIDR blocks using efficient range-based grouping.",
   "type": "module",
   "main": "./src/index.js",
