@@ -1,0 +1,30 @@
+{
+  "name": "ipv4-cidr-aggregator",
+  "version": "1.0.0",
+  "description": "Aggregate IPv4 addresses into minimal CIDR blocks using efficient range-based grouping.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SomethingWithPhp/ipv4-cidr-aggregator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SomethingWithPhp/ipv4-cidr-aggregator/issues"
+  },
+  "homepage": "https://github.com/SomethingWithPhp/ipv4-cidr-aggregator#readme",
+  "keywords": [
+    "ipv4",
+    "cidr",
+    "subnet",
+    "network",
+    "aggregation"
+  ],
+  "license": "MIT"
+}
