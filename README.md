@@ -96,6 +96,16 @@ This avoids pairwise merging and unnecessary sorting.
 
 ---
 
+### Advanced usage
+
+Low-level IPv4 utility functions are available via:
+
+import { ipToInt, intToIp } from 'ipv4-cidr-aggregator/utils'
+
+These APIs are intended for advanced use cases.
+
+---
+
 ## License
 
 MIT

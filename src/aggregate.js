@@ -26,7 +26,14 @@ export const aggregateIps = (ipAddresses, {groupPrefix}) => {
     throw new TypeError('groupPrefix must be a number')
   }
 
+  /**
+   * @type {{[networkKey: string]: {minAddress: number, maxAddress: number}}}
+   */
   const networkRanges = {}
+
+  /**
+   * @type {string[]}
+   */
   const result = []
 
   for (const ip of ipAddresses) {
