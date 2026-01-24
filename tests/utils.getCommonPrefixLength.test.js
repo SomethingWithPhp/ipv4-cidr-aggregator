@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import {getCommonPrefixLength, ipToInt} from '../src/utils.js'
+import {getCommonPrefixLength, ipToInt} from '../dist/utils.js'
 
 test('returns 32 for identical IP addresses', () => {
   const ip = ipToInt('192.168.0.1')

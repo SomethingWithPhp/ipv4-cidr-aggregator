@@ -1,17 +1,41 @@
 {
   "name": "ipv4-cidr-aggregator",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Aggregate IPv4 addresses into minimal CIDR blocks using efficient range-based grouping.",
   "type": "module",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.js",
-    "./utils": "./src/utils.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.js"
+    }
   },
   "scripts": {
-    "test": "node --test"
+    "build": "tsc",
+    "test": "npm run build && node --test",
+    "test:watch": "node --test --watch",
+    "prepublishOnly": "npm run build && npm test",
+    "clean": "rm -rf dist"
   },
-  "types": "./index.d.ts",
+  "devDependencies": {
+    "@types/node": "^20.17.9",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SomethingWithPhp/ipv4-cidr-aggregator.git"

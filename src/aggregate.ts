@@ -1,4 +1,19 @@
-import {getCommonPrefixLength, getNetworkAddress, intToIp, ipToInt} from "./utils.js";
+import {
+  getCommonPrefixLength,
+  getNetworkAddress,
+  intToIp,
+  ipToInt
+} from './utils.js'
+import type {IPv4AddressList} from "./domain/ipv4.js";
+
+export type AggregateOptions = {
+  groupPrefix: number
+}
+
+type NetworkRange = {
+  minAddress: number
+  maxAddress: number
+}
 
 /**
  * Aggregate IPv4 addresses into minimal CIDR blocks.
@@ -7,17 +22,20 @@ import {getCommonPrefixLength, getNetworkAddress, intToIp, ipToInt} from "./util
  * Within each group, the smallest possible CIDR block covering all
  * addresses in that group is calculated.
  *
- * @param {Array<string|number>} ipAddresses
+ * @param ipAddresses
  *   List of IPv4 addresses in dotted-decimal notation or as 32-bit integers.
- * @param {Object} options
- * @param {number} options.groupPrefix
+ * @param options
+ * @param options.groupPrefix
  *   CIDR prefix length used to group IP addresses before aggregation (0–32).
- * @returns {string[]}
+ * @returns
  *   Array of aggregated CIDR blocks in the form "x.x.x.x/prefix".
  * @throws {TypeError}
  *   If `ipAddresses` is not an array or `groupPrefix` is not a number.
  */
-export const aggregateIps = (ipAddresses, {groupPrefix}) => {
+export const aggregateIps = (
+  ipAddresses: IPv4AddressList,
+  {groupPrefix}: AggregateOptions
+): string[] => {
 
   if (!Array.isArray(ipAddresses)) {
     throw new TypeError('ipAddresses must be an array')
@@ -26,26 +44,26 @@ export const aggregateIps = (ipAddresses, {groupPrefix}) => {
     throw new TypeError('groupPrefix must be a number')
   }
 
-  /**
-   * @type {{[networkKey: string]: {minAddress: number, maxAddress: number}}}
-   */
-  const networkRanges = {}
-
-  /**
-   * @type {string[]}
-   */
-  const result = []
+  const networkRanges: Record<string, NetworkRange> = {}
+  const result: string[] = []
 
   for (const ip of ipAddresses) {
     const ipInt = typeof ip === 'number' ? ip : ipToInt(ip)
-    const networkKey = getNetworkAddress(ipInt, groupPrefix)
+    const networkKey = getNetworkAddress(ipInt, groupPrefix).toString()
     const networkRange = networkRanges[networkKey]
 
     if (!networkRange) {
-      networkRanges[networkKey] = {minAddress: ipInt, maxAddress: ipInt}
+      networkRanges[networkKey] = {
+        minAddress: ipInt,
+        maxAddress: ipInt
+      }
     } else {
-      if (ipInt < networkRange.minAddress) networkRange.minAddress = ipInt
-      if (ipInt > networkRange.maxAddress) networkRange.maxAddress = ipInt
+      if (ipInt < networkRange.minAddress) {
+        networkRange.minAddress = ipInt
+      }
+      if (ipInt > networkRange.maxAddress) {
+        networkRange.maxAddress = ipInt
+      }
     }
   }
 
@@ -54,5 +72,6 @@ export const aggregateIps = (ipAddresses, {groupPrefix}) => {
     const networkAddress = getNetworkAddress(minAddress, cidrPrefix)
     result.push(`${intToIp(networkAddress)}/${cidrPrefix}`)
   }
+
   return result
 }

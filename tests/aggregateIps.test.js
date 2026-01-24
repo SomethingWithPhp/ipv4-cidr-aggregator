@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import {aggregateIps} from '../src/index.js'
+import {aggregateIps} from '../dist/index.js'
 
 test('aggregates IPs within the same groupPrefix', () => {
   const result = aggregateIps(
