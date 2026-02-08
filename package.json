@@ -1,7 +1,9 @@
 {
   "name": "ipv4-cidr-aggregator",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Aggregate IPv4 addresses into minimal CIDR blocks using efficient range-based grouping.",
+  "author": "Pascal Pfeifer <pascal@pfeifer.zone>",
+  "sideEffects": false,
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,15 +18,15 @@
     }
   },
   "scripts": {
+    "clean": "rm -rf dist",
     "build": "tsc",
     "test": "npm run build && node --test",
+    "test:coverage": "npm run build && node --test --experimental-test-coverage",
     "test:watch": "node --test --watch",
-    "prepublishOnly": "npm run build && npm test",
-    "clean": "rm -rf dist"
+    "prepublishOnly": "npm run clean && npm test"
   },
   "devDependencies": {
     "@types/node": "^20.17.9",
-    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "files": [
@@ -44,6 +46,9 @@
     "url": "https://github.com/SomethingWithPhp/ipv4-cidr-aggregator/issues"
   },
   "homepage": "https://github.com/SomethingWithPhp/ipv4-cidr-aggregator#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "ipv4",
     "cidr",
@@ -51,5 +56,8 @@
     "network",
     "aggregation"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@pfeiferio/ipv4": "^1.0.2"
+  }
 }

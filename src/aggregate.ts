@@ -2,8 +2,9 @@ import {
   getCommonPrefixLength,
   getNetworkAddress,
   intToIp,
-  ipToInt
-} from './utils.js'
+  ipV4
+} from "@pfeiferio/ipv4";
+
 import type {IPv4AddressList} from "./domain/ipv4.js";
 
 export type AggregateOptions = {
@@ -48,7 +49,7 @@ export const aggregateIps = (
   const result: string[] = []
 
   for (const ip of ipAddresses) {
-    const ipInt = typeof ip === 'number' ? ip : ipToInt(ip)
+    const ipInt = ipV4(ip).toInteger()
     const networkKey = getNetworkAddress(ipInt, groupPrefix).toString()
     const networkRange = networkRanges[networkKey]
 

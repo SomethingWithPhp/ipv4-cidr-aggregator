@@ -7,7 +7,6 @@ Aggregate IPv4 addresses into minimal CIDR blocks using efficient range-based gr
 - IPv4-only (no ambiguity)
 - Deterministic aggregation
 - Efficient range-based algorithm (O(n))
-- No external dependencies
 - ES Module compatible
 - Suitable for large input sets
 
@@ -54,13 +53,14 @@ console.log(result)
 
 ### `aggregateIps(ipAddresses, options)`
 
-Aggregate IPv4 addresses into CIDR blocks.
+Aggregates IPv4 addresses into the smallest possible CIDR blocks covering the range within a group.
 
 #### Parameters
 
 * `ipAddresses`
   `Array<string | number>`
-  IPv4 addresses as dotted-decimal strings (`"192.168.0.1"`) or 32-bit integers.
+  `IPv4Address`
+* IPv4 addresses as dotted-decimal strings, 32-bit integers, or `IPv4Address` instances.
 
 * `options.groupPrefix`
   `number`
@@ -90,19 +90,19 @@ This avoids pairwise merging and unnecessary sorting.
 
 ## Notes
 
-* This library **does not validate** IPv4 input format
-* Aggregation may include addresses not present in the input (normal CIDR behavior)
-* `/0` networks are allowed if produced by the algorithm
+* **Input Validation:** Uses @pfeiferio/ipv4 for strict parsing. Invalid IPs will throw an error.
+* **Range Padding:** Aggregation may include addresses not present in the input to satisfy CIDR boundaries.
+* **Performance:** Complexity is O(n) where n is the number of input addresses.
 
 ---
 
 ### Advanced usage
 
-Low-level IPv4 utility functions are available via:
+Low-level utilities are re-exported from `@pfeiferio/ipv4` for convenience:
 
-import { ipToInt, intToIp } from 'ipv4-cidr-aggregator/utils'
-
-These APIs are intended for advanced use cases.
+```javascript
+import {ipToInt, intToIp, getNetworkAddress, getCommonPrefixLength} from 'ipv4-cidr-aggregator'
+```
 
 ---
 

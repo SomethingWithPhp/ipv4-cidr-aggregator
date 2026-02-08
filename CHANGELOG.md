@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-02-08
+
+### Changed
+
+* **Breaking**: Refactored core logic to use `@pfeiferio/ipv4` as a dependency.
+* Internal utility functions in `src/utils.ts` are now re-exported from the core library.
+* Improved IP normalization: Input strings with leading zeros or CIDR suffixes are now handled more robustly via the new core parser.
+* Updated development workflow: Switched to native `node --test` coverage and added `.nvmrc` for Node 18.
+
+### Added
+
+* Exported `ipV4` factory and `IPv4Address` types from the main entry point.
+* Added `test:coverage` script for native V8 coverage reports.
+
 ## [1.2.0] - 2026-01-24
 
 ### Changed
